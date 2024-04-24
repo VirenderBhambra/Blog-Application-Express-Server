@@ -16,10 +16,10 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from frontend origin
-  methods: ['GET', 'POST'], // Allow only GET and POST requests
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow only specified headers
-  exposedHeaders: ['Authorization'], // Expose Authorization header to frontend
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST','PUT','DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Authorization'],
   credentials: true,
 }));
 // Use cookie-parser middleware

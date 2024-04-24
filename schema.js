@@ -9,7 +9,7 @@ const blogSchema = new Schema({
   description: String,
   slug: String,
   date: { type: Date, default: Date.now },
-  hastags: String,
+  hashtags: String,
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
