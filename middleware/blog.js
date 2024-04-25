@@ -14,18 +14,20 @@ router.get("/ften", async function (req, res) {
     console.error("Error fetching blogs:", error);
     res.status(500).json({ error: "Failed to fetch blogs" });
   }
-});  
+});
 
-router.get('/myBlogs', verifyToken, async function (req, res) {
-  const user = decodeURIComponent(req.headers.cookie.split(' ')[1]).split('=')[1];
-  const userId = user.slice(0,-1) 
+router.get("/myBlogs", verifyToken, async function (req, res) {
+  const user = decodeURIComponent(req.headers.cookie.split(" ")[1]).split(
+    "="
+  )[1];
+  const userId = user.slice(0, -1);
   // console.log(userId);
   const blog = await Blog.find(
-    { user: userId},
-    { title: 1, description: 1, author: 1, date: 1, hashtags: 1 ,slug:1}
+    { user: userId },
+    { title: 1, description: 1, author: 1, date: 1, hashtags: 1, slug: 1 }
   );
   res.status(200).json(blog);
-  })
+});
 
 router.get("/all", async function (req, res) {
   const blogs = await Blog.find(
