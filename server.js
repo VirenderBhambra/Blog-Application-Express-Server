@@ -31,6 +31,10 @@ app.use(express.json());
 
 require("./middleware/dbConnect");
 
+app.get('/',function (req, res) {
+  res.json('Hello World!');
+  })
+  
 app.use("/user", userRouter);
 app.use("/blog", blogRouter);
 
