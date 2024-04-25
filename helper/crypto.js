@@ -1,9 +1,6 @@
 const CryptoJS = require("crypto-js");
 
 function decrypt(encryptedData) {
-  console.log(process.env.CRYPTO_SECRET);
-  console.log(CryptoJS.AES.decrypt(encryptedData, process.env.CRYPTO_SECRET).toString(
-    CryptoJS.enc.Utf8));
   return JSON.parse(
     CryptoJS.AES.decrypt(encryptedData, process.env.CRYPTO_SECRET).toString(
       CryptoJS.enc.Utf8

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Blog } = require("../schema");
 const { verifyToken } = require("../middleware/jwt");
+const parseCookies = require('../helper/cookieParser')
+
 
 router.get("/ften", async function (req, res) {
   try {
@@ -17,11 +19,9 @@ router.get("/ften", async function (req, res) {
 });
 
 router.get("/myBlogs", verifyToken, async function (req, res) {
-  const user = decodeURIComponent(req.headers.cookie.split(" ")[1]).split(
-    "="
-  )[1];
-  const userId = user.slice(0, -1);
-  // console.log(userId);
+  cookies = parseCookies(req.headers.cookie);
+  const userId = decodeURIComponent(cookies['user']);
+  console.log(userId);
   const blog = await Blog.find(
     { user: userId },
     { title: 1, description: 1, author: 1, date: 1, hashtags: 1, slug: 1 }

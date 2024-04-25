@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const parseCookies = require('../helper/cookieParser')
+
 
 function generateToken(req, res, next) {
   const payload = {
@@ -21,8 +23,9 @@ function generateToken(req, res, next) {
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request headers or query string or cookie, etc.
-  let token = req.headers.cookie.split(' ')[2];
-  token = decodeURIComponent(token).split(' ')[1]; 
+  cookies = parseCookies(req.headers.cookie);
+  let token = decodeURIComponent(cookies['token'].split(' ')[1]);
+  console.log(token);
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
   }
