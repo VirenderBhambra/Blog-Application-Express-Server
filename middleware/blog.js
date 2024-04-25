@@ -18,10 +18,10 @@ router.get("/ften", async function (req, res) {
   }
 });
 
-router.get("/myBlogs", verifyToken, async function (req, res) {
+router.get("/myBlogs", async function (req, res) {
   cookies = parseCookies(req.headers.cookie);
-  const userId = decodeURIComponent(cookies['user']);
-  console.log(userId);
+  console.log(cookies);
+  const userId = cookies['user'];
   const blog = await Blog.find(
     { user: userId },
     { title: 1, description: 1, author: 1, date: 1, hashtags: 1, slug: 1 }
