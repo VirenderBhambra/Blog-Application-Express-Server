@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: 'https://blog-application-next-js-ten.vercel.app/', 
   methods: ['GET', 'POST','PUT','DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization','user'],
   exposedHeaders: ['Authorization'],
