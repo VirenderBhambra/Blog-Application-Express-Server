@@ -19,9 +19,7 @@ router.get("/ften", async function (req, res) {
 });
 
 router.get("/myBlogs", async function (req, res) {
-  cookies = parseCookies(req.headers.cookie);
-  console.log(cookies);
-  const userId = cookies['user'];
+  const userId = req.headers.user;
   const blog = await Blog.find(
     { user: userId },
     { title: 1, description: 1, author: 1, date: 1, hashtags: 1, slug: 1 }

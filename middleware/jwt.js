@@ -22,11 +22,11 @@ function generateToken(req, res, next) {
 
 const verifyToken = (req, res, next) => {
   // Get the token from the request headers or query string or cookie, etc.
-  cookies = parseCookies(req.headers.cookie);
-  console.log(cookies['token'].split(' ')[1]);
-  console.log(jwt.verify(cookies['token'].split(' ')[1], process.env.JWT_SECRET))
-  let token = cookies['token'].split(' ')[1];
-  console.log(token);
+  // cookies = parseCookies(req.headers.cookie);
+  // let token = cookies['token'].split(' ')[1];
+  // console.log(token);
+  // console.log(req.headers)
+  let token = req.headers.authorization.split(' ')[1];
   if (!token) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
   }
