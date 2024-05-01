@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Blog } = require("../schema");
 const { verifyToken } = require("../middleware/jwt");
-const parseCookies = require('../helper/cookieParser')
-
+const parseCookies = require("../helper/cookieParser");
 
 router.get("/ften", async function (req, res) {
   try {
@@ -78,4 +77,34 @@ router.post("/post", verifyToken, async (req, res) => {
   }
 });
 
+router.put("/post", verifyToken, async (req, res) => {
+  const blog = req.body;
+  try {
+    const blogUpdate = await Blog.findOneAndUpdate(
+      { _id: blog.blogID },
+      {
+        $set: {
+          title: blog.data.title,
+          content: blog.data.content,
+          hashtags: blog.data.hashtags,
+          description: blog.data.content.replace(/<[^>]+>/g, "").substring(0, 250),
+        },
+      },
+      { new: true }
+    );
+    res.status(200).send("blogUpdate");
+  } catch (error) {
+    res.status(500).json({ error: "Error updating blog" });
+  }
+});
+router.delete("/delete/:id", verifyToken, async (req, res) => {
+  const id = req.params.id;
+  try{
+    await Blog.findByIdAndDelete({_id: id});
+    res.status(200).json({ message: "Blog deleted" });
+  }
+  catch(error) {
+    res.send(500).json({ error: "Error deleting blog" });
+  }
+});
 module.exports = router;
